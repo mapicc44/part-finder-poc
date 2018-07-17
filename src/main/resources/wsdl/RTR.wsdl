@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions name="SI_O_Async_RTR_Stock" targetNamespace="http://halfords.com/xi/in/ecommerce/RTR" xmlns:p1="http://halfords.com/xi/in/ecommerce/RTR" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+	<wsdl:documentation/> 
+	<wsp:UsingPolicy wsdl:required="false"/> 
+	<wsp:Policy wsu:Id="OP_SI_O_Async_RTR_Stock"/> 
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://halfords.com/xi/in/ecommerce/RTR" xmlns="http://halfords.com/xi/in/ecommerce/RTR" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:element name="MT_RTR_Stock" type="DT_RTR_Stock"/> 
+			<xsd:complexType name="DT_RTR_Stock">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">f6d3bce8fbde11e5c33900000644b4e2</xsd:appinfo> 
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="RTR_Header">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">c56913bafbf211e5804854da9ab89a11</xsd:appinfo> 
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Reservation_Order_No" type="xsd:string">
+									<xsd:annotation>
+										<xsd:appinfo source="http://sap.com/xi/TextID">c56913b7fbf211e5ba2c54da9ab89a11</xsd:appinfo> 
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="Res_Date" type="xsd:string">
+									<xsd:annotation>
+										<xsd:appinfo source="http://sap.com/xi/TextID">c56913b8fbf211e5969f54da9ab89a11</xsd:appinfo> 
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="Move_Plant" type="xsd:string">
+									<xsd:annotation>
+										<xsd:appinfo source="http://sap.com/xi/TextID">c56913b9fbf211e5cdb854da9ab89a11</xsd:appinfo> 
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element maxOccurs="unbounded" name="RTR_Item">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">c56913befbf211e585f254da9ab89a11</xsd:appinfo> 
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Material" type="xsd:string">
+									<xsd:annotation>
+										<xsd:appinfo source="http://sap.com/xi/TextID">c56913bbfbf211e5af6f54da9ab89a11</xsd:appinfo> 
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="Plant" type="xsd:string">
+									<xsd:annotation>
+										<xsd:appinfo source="http://sap.com/xi/TextID">c56913bcfbf211e5c44854da9ab89a11</xsd:appinfo> 
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="Entry_Qnt" type="xsd:string">
+									<xsd:annotation>
+										<xsd:appinfo source="http://sap.com/xi/TextID">c56913bdfbf211e5852554da9ab89a11</xsd:appinfo> 
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="MT_RTR_Stock">
+		<wsdl:documentation/> 
+		<wsdl:part element="p1:MT_RTR_Stock" name="MT_RTR_Stock"/> 
+	</wsdl:message>
+	<wsdl:portType name="SI_O_Async_RTR_Stock">
+		<wsdl:documentation/> 
+		<wsdl:operation name="SI_O_Async_RTR_Stock">
+			<wsdl:documentation/> 
+			<wsp:Policy>
+				<wsp:PolicyReference URI="#OP_SI_O_Async_RTR_Stock"/> 
+			</wsp:Policy>
+			<wsdl:input message="p1:MT_RTR_Stock"/> 
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="SI_O_Async_RTR_StockBinding" type="p1:SI_O_Async_RTR_Stock">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/> 
+		<wsdl:operation name="SI_O_Async_RTR_Stock">
+			<soap:operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/> 
+			<wsdl:input>
+				<soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/> 
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SI_O_Async_RTR_StockService">
+		<wsdl:port binding="p1:SI_O_Async_RTR_StockBinding" name="HTTP_Port">
+			<soap:address location="http://hsappdl02.1609.1343.ecs.hp.com:51000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=ECommerce_DEV&amp;receiverParty=&amp;receiverService=&amp;interface=SI_O_Async_RTR_Stock&amp;interfaceNamespace=http%3A%2F%2Fhalfords.com%2Fxi%2Fin%2Fecommerce%2FRTR" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/> 
+		</wsdl:port>
+		<wsdl:port binding="p1:SI_O_Async_RTR_StockBinding" name="HTTPS_Port">
+			<soap:address location="https://hsappdl02.1609.1343.ecs.hp.com:51001/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=ECommerce_DEV&amp;receiverParty=&amp;receiverService=&amp;interface=SI_O_Async_RTR_Stock&amp;interfaceNamespace=http%3A%2F%2Fhalfords.com%2Fxi%2Fin%2Fecommerce%2FRTR" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/> 
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="OrderService" targetNamespace="http://HAL.BTEIntegration.Order.Service" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://HAL.BTEIntegration.Order.Service" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsp:Policy wsu:Id="CustomBinding_IOrderService_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1"/>
+				<wsaw:UsingAddressing/>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://HAL.BTEIntegration.Order.Service" xmlns:tns="http://schemas.datacontract.org/2004/07/HAL.Web.Order.Contracts" xmlns:tns2="http://schemas.datacontract.org/2004/07/HAL.IIS.BTEIntegration.Order">
+			<xs:import namespace="http://schemas.datacontract.org/2004/07/HAL.Web.Order.Contracts"/>
+			<xs:import namespace="http://schemas.datacontract.org/2004/07/HAL.IIS.BTEIntegration.Order"/>
+			<xs:element name="PIWebOrder">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="order" nillable="true" type="q1:WebOrder" xmlns:q1="http://schemas.datacontract.org/2004/07/HAL.Web.Order.Contracts"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PIWebOrderResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="PIWebOrderResult" nillable="true" type="q2:WebOrder.Response" xmlns:q2="http://schemas.datacontract.org/2004/07/HAL.Web.Order.Contracts"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PIReserveItem">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="ReservedItem" nillable="true" type="q3:WebOrderReservation" xmlns:q3="http://schemas.datacontract.org/2004/07/HAL.Web.Order.Contracts"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PIReserveItemResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="PIReserveItemResult" nillable="true" type="q4:WebOrderReservation.Response" xmlns:q4="http://schemas.datacontract.org/2004/07/HAL.Web.Order.Contracts"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="WebOrderChanges">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="order" nillable="true" type="q5:WebOrderChange" xmlns:q5="http://schemas.datacontract.org/2004/07/HAL.Web.Order.Contracts"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="WebOrderChangesResponse">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ExtendAndCancelChanges">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="1" minOccurs="0" name="OrderTrackingXML">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:any/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ExtendAndCancelChangesResponse">
+				<xs:complexType/>
+			</xs:element>
+			<xs:element name="GetAvailability">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="stockrequest" nillable="true" type="q6:StockLevelRequest" xmlns:q6="http://schemas.datacontract.org/2004/07/HAL.IIS.BTEIntegration.Order"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetAvailabilityResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="GetAvailabilityResult" nillable="true" type="q7:StockLevelRequest" xmlns:q7="http://schemas.datacontract.org/2004/07/HAL.IIS.BTEIntegration.Order"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CreateZNONItem">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="ItemDetails" nillable="true" type="xs:string"/>
+						<xs:element minOccurs="0" name="PriceDetails" nillable="true" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CreateZNONItemResponse">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+			<xs:element name="anyType" nillable="true" type="xs:anyType"/>
+			<xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+			<xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+			<xs:element name="boolean" nillable="true" type="xs:boolean"/>
+			<xs:element name="byte" nillable="true" type="xs:byte"/>
+			<xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+			<xs:element name="decimal" nillable="true" type="xs:decimal"/>
+			<xs:element name="double" nillable="true" type="xs:double"/>
+			<xs:element name="float" nillable="true" type="xs:float"/>
+			<xs:element name="int" nillable="true" type="xs:int"/>
+			<xs:element name="long" nillable="true" type="xs:long"/>
+			<xs:element name="QName" nillable="true" type="xs:QName"/>
+			<xs:element name="short" nillable="true" type="xs:short"/>
+			<xs:element name="string" nillable="true" type="xs:string"/>
+			<xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+			<xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+			<xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+			<xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+			<xs:element name="char" nillable="true" type="tns:char"/>
+			<xs:simpleType name="char">
+				<xs:restriction base="xs:int"/>
+			</xs:simpleType>
+			<xs:element name="duration" nillable="true" type="tns:duration"/>
+			<xs:simpleType name="duration">
+				<xs:restriction base="xs:duration">
+					<xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+					<xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+					<xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:element name="guid" nillable="true" type="tns:guid"/>
+			<xs:simpleType name="guid">
+				<xs:restriction base="xs:string">
+					<xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:attribute name="FactoryType" type="xs:QName"/>
+			<xs:attribute name="Id" type="xs:ID"/>
+			<xs:attribute name="Ref" type="xs:IDREF"/>
+		</xs:schema>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/HAL.Web.Order.Contracts" xmlns:tns="http://schemas.datacontract.org/2004/07/HAL.Web.Order.Contracts">
+			<xs:complexType name="WebOrder">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="CustomerDetails" nillable="true" type="tns:Customer"/>
+					<xs:element minOccurs="0" name="CustomerNo" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="ItemDetails" nillable="true" type="tns:ArrayOfItem"/>
+					<xs:element minOccurs="0" name="OrderDetails" nillable="true" type="tns:Order"/>
+					<xs:element minOccurs="0" name="OrderNo" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="StoreNo" type="xs:int"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="WebOrder" nillable="true" type="tns:WebOrder"/>
+			<xs:complexType name="Customer">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Address1" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Address2" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Address3" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Address4" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="City" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="County" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Email" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Gender" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="HomeTelephone" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="MobileTelephone" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="PostCode" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Surname" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Title" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="WorkTelephone" nillable="true" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="Customer" nillable="true" type="tns:Customer"/>
+			<xs:complexType name="ArrayOfItem">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="Item" nillable="true" type="tns:Item"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ArrayOfItem" nillable="true" type="tns:ArrayOfItem"/>
+			<xs:complexType name="Item">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="AlloyWheel" nillable="true" type="tns:AlloyWheelInfo"/>
+					<xs:element minOccurs="0" name="Article" nillable="true" type="tns:ArticleInfo"/>
+					<xs:element minOccurs="0" name="BookingReference" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="BuiltOrBoxed" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Delivery" nillable="true" type="tns:DeliveryInfo"/>
+					<xs:element minOccurs="0" name="DiscPriceInd" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="ECP" nillable="true" type="tns:ECPOrderInfo"/>
+					<xs:element minOccurs="0" name="EbayReference" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Fitment" nillable="true" type="tns:FitmentInfo"/>
+					<xs:element minOccurs="0" name="FulfilmentMethod" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="LineCollectionDate" type="xs:dateTime"/>
+					<xs:element minOccurs="0" name="LineNo" type="xs:int"/>
+					<xs:element minOccurs="0" name="PersonalisationDetails" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="PersonalisationSKU" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Pricing" nillable="true" type="tns:PricingInfo"/>
+					<xs:element minOccurs="0" name="PromoLine" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Qty" type="xs:int"/>
+					<xs:element minOccurs="0" name="SKU" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="SapLineNo" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="VRNno" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Value" type="xs:decimal"/>
+					<xs:element minOccurs="0" name="Wee" nillable="true" type="tns:WEEEInfo"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="Item" nillable="true" type="tns:Item"/>
+			<xs:complexType name="AlloyWheelInfo">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Offset" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="PCD" nillable="true" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="AlloyWheelInfo" nillable="true" type="tns:AlloyWheelInfo"/>
+			<xs:complexType name="ArticleInfo">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="BrandName" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Description" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="MerchandiseCategory" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="PartTypeNo" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="VendorArticleNo" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="VendorCode" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="VendorMarker" nillable="true" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ArticleInfo" nillable="true" type="tns:ArticleInfo"/>
+			<xs:complexType name="DeliveryInfo">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="CanBeDelivered" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="LeadTime" nillable="true" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="DeliveryInfo" nillable="true" type="tns:DeliveryInfo"/>
+			<xs:complexType name="ECPOrderInfo">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="CustomerOrderNo" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="PurchaseOrderLineNo" type="xs:int"/>
+					<xs:element minOccurs="0" name="PurchaseOrderNo" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="PurchaseOrderStatus" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="VendorCode" nillable="true" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ECPOrderInfo" nillable="true" type="tns:ECPOrderInfo"/>
+			<xs:complexType name="FitmentInfo">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Engine" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Make" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Model" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Year" nillable="true" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="FitmentInfo" nillable="true" type="tns:FitmentInfo"/>
+			<xs:complexType name="PricingInfo">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="CostPrice" type="xs:decimal"/>
+					<xs:element minOccurs="0" name="GBP" nillable="true" type="tns:PriceStructure"/>
+					<xs:element minOccurs="0" name="IsPromoApplied" type="xs:boolean"/>
+					<xs:element minOccurs="0" name="ROI" nillable="true" type="tns:PriceStructure"/>
+					<xs:element minOccurs="0" name="VATCode" nillable="true" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="PricingInfo" nillable="true" type="tns:PricingInfo"/>
+			<xs:complexType name="PriceStructure">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Retail" type="xs:decimal"/>
+					<xs:element minOccurs="0" name="Trade" type="xs:decimal"/>
+					<xs:element minOccurs="0" name="WEEEE" type="xs:decimal"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="PriceStructure" nillable="true" type="tns:PriceStructure"/>
+			<xs:complexType name="WEEEInfo">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Number" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Price" nillable="true" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="WEEEInfo" nillable="true" type="tns:WEEEInfo"/>
+			<xs:complexType name="Order">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="AdditionalPaymentAmount" type="xs:decimal"/>
+					<xs:element minOccurs="0" name="AdditionalPaymentMethod" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="DiscCard" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="DiscCardType" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="ECP" nillable="true" type="tns:ECPOrderInfo"/>
+					<xs:element minOccurs="0" name="EbayReference" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="GiftOrder" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="MaskedCardNo" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="OrderPlacedDate" type="xs:dateTime"/>
+					<xs:element minOccurs="0" name="OrderSource" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="OrderType" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="PaymentStatus" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="PrimaryPaymentAmount" type="xs:decimal"/>
+					<xs:element minOccurs="0" name="PrimaryPaymentMethod" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="PromoHeader" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="QuoteNumber" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="RequiredDate" type="xs:dateTime"/>
+					<xs:element minOccurs="0" name="ReservationNumber" nillable="true" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="Order" nillable="true" type="tns:Order"/>
+			<xs:complexType name="WebOrder.Response">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="OrderNo" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="StatusMessage" nillable="true" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="WebOrder.Response" nillable="true" type="tns:WebOrder.Response"/>
+			<xs:complexType name="WebOrderReservation">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="OrderNo" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="ReservedItemDetails" nillable="true" type="tns:ArrayOfReservedItem"/>
+					<xs:element minOccurs="0" name="StoreNo" type="xs:int"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="WebOrderReservation" nillable="true" type="tns:WebOrderReservation"/>
+			<xs:complexType name="ArrayOfReservedItem">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ReservedItem" nillable="true" type="tns:ReservedItem"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ArrayOfReservedItem" nillable="true" type="tns:ArrayOfReservedItem"/>
+			<xs:complexType name="ReservedItem">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="ArticleNo" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Quantity" type="xs:int"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ReservedItem" nillable="true" type="tns:ReservedItem"/>
+			<xs:complexType name="WebOrderReservation.Response">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="OrderNo" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="StatusMessage" nillable="true" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="WebOrderReservation.Response" nillable="true" type="tns:WebOrderReservation.Response"/>
+			<xs:complexType name="WebOrderChange">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="ArticleDetails" nillable="true" type="tns:ArrayOfArticleDetails"/>
+					<xs:element minOccurs="0" name="OrderNo" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="OrderType" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="StoreNo" type="xs:int"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="WebOrderChange" nillable="true" type="tns:WebOrderChange"/>
+			<xs:complexType name="ArrayOfArticleDetails">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ArticleDetails" nillable="true" type="tns:ArticleDetails"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ArrayOfArticleDetails" nillable="true" type="tns:ArrayOfArticleDetails"/>
+			<xs:complexType name="ArticleDetails">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="ArticleNo" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="LineCollectionDate" type="xs:dateTime"/>
+					<xs:element minOccurs="0" name="LineReasonType" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="LineStatus" type="xs:int"/>
+					<xs:element minOccurs="0" name="SapLineNo" type="xs:int"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ArticleDetails" nillable="true" type="tns:ArticleDetails"/>
+		</xs:schema>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.epicor.com/Retail/Store/" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://www.epicor.com/Retail/Store/" xmlns:tns2="http://schemas.datacontract.org/2004/07/System.ServiceModel">
+			<xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+			<xs:import namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+			<xs:complexType name="FaultDetailDataContract">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="CorrelationUniqueId" type="ser:guid"/>
+					<xs:element minOccurs="0" name="ErrorCode" type="xs:int"/>
+					<xs:element minOccurs="0" name="ErrorTypeCode" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="ExceptionDetail" nillable="true" type="q1:ExceptionDetail" xmlns:q1="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+					<xs:element minOccurs="0" name="Message" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="ServiceAddress" nillable="true" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="FaultDetailDataContract" nillable="true" type="tns:FaultDetailDataContract"/>
+		</xs:schema>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System.ServiceModel" xmlns:tns="http://schemas.datacontract.org/2004/07/System.ServiceModel">
+			<xs:complexType name="ExceptionDetail">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="HelpLink" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="InnerException" nillable="true" type="tns:ExceptionDetail"/>
+					<xs:element minOccurs="0" name="Message" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="StackTrace" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="Type" nillable="true" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ExceptionDetail" nillable="true" type="tns:ExceptionDetail"/>
+		</xs:schema>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/HAL.IIS.BTEIntegration.Order" xmlns:tns="http://schemas.datacontract.org/2004/07/HAL.IIS.BTEIntegration.Order">
+			<xs:complexType name="StockLevelRequest">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="ArticlesStockLevels" nillable="true" type="tns:ArrayOfArticleStockLevels"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="StockLevelRequest" nillable="true" type="tns:StockLevelRequest"/>
+			<xs:complexType name="ArrayOfArticleStockLevels">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ArticleStockLevels" nillable="true" type="tns:ArticleStockLevels"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ArrayOfArticleStockLevels" nillable="true" type="tns:ArrayOfArticleStockLevels"/>
+			<xs:complexType name="ArticleStockLevels">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="ArticleNumber" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="QtyRequired" type="xs:int"/>
+					<xs:element minOccurs="0" name="StoresStockLevels" nillable="true" type="tns:ArrayOfArticleStockLevels.StoreStockLevel"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ArticleStockLevels" nillable="true" type="tns:ArticleStockLevels"/>
+			<xs:complexType name="ArrayOfArticleStockLevels.StoreStockLevel">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="ArticleStockLevels.StoreStockLevel" nillable="true" type="tns:ArticleStockLevels.StoreStockLevel"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ArrayOfArticleStockLevels.StoreStockLevel" nillable="true" type="tns:ArrayOfArticleStockLevels.StoreStockLevel"/>
+			<xs:complexType name="ArticleStockLevels.StoreStockLevel">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Deposit" type="xs:decimal"/>
+					<xs:element minOccurs="0" name="IsAvailable" type="xs:boolean"/>
+					<xs:element minOccurs="0" name="IsDC" type="xs:boolean"/>
+					<xs:element minOccurs="0" name="OrderThreshold" type="xs:int"/>
+					<xs:element minOccurs="0" name="Qty" type="xs:int"/>
+					<xs:element minOccurs="0" name="StockLevel" type="xs:int"/>
+					<xs:element minOccurs="0" name="StoreNumber" type="xs:int"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ArticleStockLevels.StoreStockLevel" nillable="true" type="tns:ArticleStockLevels.StoreStockLevel"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="IOrderService_PIWebOrder_InputMessage">
+		<wsdl:part element="tns:PIWebOrder" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_PIWebOrder_OutputMessage">
+		<wsdl:part element="tns:PIWebOrderResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_PIWebOrder_FaultDetailDataContractFault_FaultMessage">
+		<wsdl:part element="q1:FaultDetailDataContract" name="detail" xmlns:q1="http://www.epicor.com/Retail/Store/"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_PIReserveItem_InputMessage">
+		<wsdl:part element="tns:PIReserveItem" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_PIReserveItem_OutputMessage">
+		<wsdl:part element="tns:PIReserveItemResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_PIReserveItem_FaultDetailDataContractFault_FaultMessage">
+		<wsdl:part element="q2:FaultDetailDataContract" name="detail" xmlns:q2="http://www.epicor.com/Retail/Store/"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_WebOrderChanges_InputMessage">
+		<wsdl:part element="tns:WebOrderChanges" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_WebOrderChanges_OutputMessage">
+		<wsdl:part element="tns:WebOrderChangesResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_WebOrderChanges_FaultDetailDataContractFault_FaultMessage">
+		<wsdl:part element="q3:FaultDetailDataContract" name="detail" xmlns:q3="http://www.epicor.com/Retail/Store/"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_ExtendAndCancelChanges_InputMessage">
+		<wsdl:part element="tns:ExtendAndCancelChanges" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_ExtendAndCancelChanges_OutputMessage">
+		<wsdl:part element="tns:ExtendAndCancelChangesResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_ExtendAndCancelChanges_FaultDetailDataContractFault_FaultMessage">
+		<wsdl:part element="q4:FaultDetailDataContract" name="detail" xmlns:q4="http://www.epicor.com/Retail/Store/"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_GetAvailability_InputMessage">
+		<wsdl:part element="tns:GetAvailability" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_GetAvailability_OutputMessage">
+		<wsdl:part element="tns:GetAvailabilityResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_GetAvailability_FaultDetailDataContractFault_FaultMessage">
+		<wsdl:part element="q5:FaultDetailDataContract" name="detail" xmlns:q5="http://www.epicor.com/Retail/Store/"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_CreateZNONItem_InputMessage">
+		<wsdl:part element="tns:CreateZNONItem" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_CreateZNONItem_OutputMessage">
+		<wsdl:part element="tns:CreateZNONItemResponse" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="IOrderService_CreateZNONItem_FaultDetailDataContractFault_FaultMessage">
+		<wsdl:part element="q6:FaultDetailDataContract" name="detail" xmlns:q6="http://www.epicor.com/Retail/Store/"/>
+	</wsdl:message>
+	<wsdl:portType name="IOrderService">
+		<wsdl:operation name="PIWebOrder">
+			<wsdl:input message="tns:IOrderService_PIWebOrder_InputMessage" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/PIWebOrder"/>
+			<wsdl:output message="tns:IOrderService_PIWebOrder_OutputMessage" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/PIWebOrderResponse"/>
+			<wsdl:fault message="tns:IOrderService_PIWebOrder_FaultDetailDataContractFault_FaultMessage" name="FaultDetailDataContractFault" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/PIWebOrderFaultDetailDataContractFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="PIReserveItem">
+			<wsdl:input message="tns:IOrderService_PIReserveItem_InputMessage" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/PIReserveItem"/>
+			<wsdl:output message="tns:IOrderService_PIReserveItem_OutputMessage" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/PIReserveItemResponse"/>
+			<wsdl:fault message="tns:IOrderService_PIReserveItem_FaultDetailDataContractFault_FaultMessage" name="FaultDetailDataContractFault" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/PIReserveItemFaultDetailDataContractFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="WebOrderChanges">
+			<wsdl:input message="tns:IOrderService_WebOrderChanges_InputMessage" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/WebOrderChanges"/>
+			<wsdl:output message="tns:IOrderService_WebOrderChanges_OutputMessage" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/WebOrderChangesResponse"/>
+			<wsdl:fault message="tns:IOrderService_WebOrderChanges_FaultDetailDataContractFault_FaultMessage" name="FaultDetailDataContractFault" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/WebOrderChangesFaultDetailDataContractFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="ExtendAndCancelChanges">
+			<wsdl:input message="tns:IOrderService_ExtendAndCancelChanges_InputMessage" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/ExtendAndCancelChanges"/>
+			<wsdl:output message="tns:IOrderService_ExtendAndCancelChanges_OutputMessage" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/ExtendAndCancelChangesResponse"/>
+			<wsdl:fault message="tns:IOrderService_ExtendAndCancelChanges_FaultDetailDataContractFault_FaultMessage" name="FaultDetailDataContractFault" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/ExtendAndCancelChangesFaultDetailDataContractFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetAvailability">
+			<wsdl:input message="tns:IOrderService_GetAvailability_InputMessage" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/GetAvailability"/>
+			<wsdl:output message="tns:IOrderService_GetAvailability_OutputMessage" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/GetAvailabilityResponse"/>
+			<wsdl:fault message="tns:IOrderService_GetAvailability_FaultDetailDataContractFault_FaultMessage" name="FaultDetailDataContractFault" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/GetAvailabilityFaultDetailDataContractFault"/>
+		</wsdl:operation>
+		<wsdl:operation name="CreateZNONItem">
+			<wsdl:input message="tns:IOrderService_CreateZNONItem_InputMessage" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/CreateZNONItem"/>
+			<wsdl:output message="tns:IOrderService_CreateZNONItem_OutputMessage" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/CreateZNONItemResponse"/>
+			<wsdl:fault message="tns:IOrderService_CreateZNONItem_FaultDetailDataContractFault_FaultMessage" name="FaultDetailDataContractFault" wsaw:Action="http://HAL.BTEIntegration.Order.Service/IOrderService/CreateZNONItemFaultDetailDataContractFault"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="CustomBinding_IOrderService" type="tns:IOrderService">
+		<wsp:PolicyReference URI="#CustomBinding_IOrderService_policy"/>
+		<soap12:binding transport="http://schemas.microsoft.com/soap/tcp"/>
+		<wsdl:operation name="PIWebOrder">
+			<soap12:operation soapAction="http://HAL.BTEIntegration.Order.Service/IOrderService/PIWebOrder" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultDetailDataContractFault">
+				<soap12:fault name="FaultDetailDataContractFault" namespace="" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="PIReserveItem">
+			<soap12:operation soapAction="http://HAL.BTEIntegration.Order.Service/IOrderService/PIReserveItem" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultDetailDataContractFault">
+				<soap12:fault name="FaultDetailDataContractFault" namespace="" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="WebOrderChanges">
+			<soap12:operation soapAction="http://HAL.BTEIntegration.Order.Service/IOrderService/WebOrderChanges" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultDetailDataContractFault">
+				<soap12:fault name="FaultDetailDataContractFault" namespace="" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="ExtendAndCancelChanges">
+			<soap12:operation soapAction="http://HAL.BTEIntegration.Order.Service/IOrderService/ExtendAndCancelChanges" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultDetailDataContractFault">
+				<soap12:fault name="FaultDetailDataContractFault" namespace="" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="GetAvailability">
+			<soap12:operation soapAction="http://HAL.BTEIntegration.Order.Service/IOrderService/GetAvailability" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultDetailDataContractFault">
+				<soap12:fault name="FaultDetailDataContractFault" namespace="" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="CreateZNONItem">
+			<soap12:operation soapAction="http://HAL.BTEIntegration.Order.Service/IOrderService/CreateZNONItem" style="document"/>
+			<wsdl:input>
+				<soap12:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultDetailDataContractFault">
+				<soap12:fault name="FaultDetailDataContractFault" namespace="" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="BasicHttpBinding_IOrderService" type="tns:IOrderService">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="PIWebOrder">
+			<soap:operation soapAction="http://HAL.BTEIntegration.Order.Service/IOrderService/PIWebOrder" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultDetailDataContractFault">
+				<soap:fault name="FaultDetailDataContractFault" namespace="" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="PIReserveItem">
+			<soap:operation soapAction="http://HAL.BTEIntegration.Order.Service/IOrderService/PIReserveItem" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultDetailDataContractFault">
+				<soap:fault name="FaultDetailDataContractFault" namespace="" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="WebOrderChanges">
+			<soap:operation soapAction="http://HAL.BTEIntegration.Order.Service/IOrderService/WebOrderChanges" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultDetailDataContractFault">
+				<soap:fault name="FaultDetailDataContractFault" namespace="" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="ExtendAndCancelChanges">
+			<soap:operation soapAction="http://HAL.BTEIntegration.Order.Service/IOrderService/ExtendAndCancelChanges" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultDetailDataContractFault">
+				<soap:fault name="FaultDetailDataContractFault" namespace="" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="GetAvailability">
+			<soap:operation soapAction="http://HAL.BTEIntegration.Order.Service/IOrderService/GetAvailability" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultDetailDataContractFault">
+				<soap:fault name="FaultDetailDataContractFault" namespace="" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="CreateZNONItem">
+			<soap:operation soapAction="http://HAL.BTEIntegration.Order.Service/IOrderService/CreateZNONItem" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="FaultDetailDataContractFault">
+				<soap:fault name="FaultDetailDataContractFault" namespace="" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="OrderService">
+		<wsdl:port binding="tns:CustomBinding_IOrderService" name="CustomBinding_IOrderService">
+			<soap12:address location="net.tcp://localhost:4627/HAL.BTEIntegration.Order.Service.svc"/>
+			<wsa10:EndpointReference>
+				<wsa10:Address>net.tcp://localhost:4627/HAL.BTEIntegration.Order.Service.svc</wsa10:Address>
+			</wsa10:EndpointReference>
+		</wsdl:port>
+		<wsdl:port binding="tns:BasicHttpBinding_IOrderService" name="BasicHttpBinding_IOrderService">
+			<soap:address location="http://localhost:5627/HAL.BTEIntegration.Order.Service.svc"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,180 @@
+GetAvailability REQUEST:	[HAL_BTEIntegration_Order_Service.wsdl]
+
+	<s11:Envelope xmlns:s11='http://schemas.xmlsoap.org/soap/envelope/'>
+		<s11:Body>
+			<ns1:GetAvailability xmlns:ns1='http://HAL.BTEIntegration.Order.Service'>
+				<ns1:stockrequest>
+					<ns2:ArticlesStockLevels xmlns:ns2='http://schemas.datacontract.org/2004/07/HAL.IIS.BTEIntegration.Order'>
+						<ns2:ArticleStockLevels>
+							<ns2:ArticleNumber>?XXX?</ns2:ArticleNumber>
+							<ns2:QtyRequired>?999?</ns2:QtyRequired>
+							<ns2:StoresStockLevels>
+								<!-- from 0 to unbounded -->
+								<ns2:ArticleStockLevels.StoreStockLevel>
+									<ns2:Deposit>?999.99?</ns2:Deposit>
+									<ns2:IsAvailable>?true?</ns2:IsAvailable>
+									<ns2:IsDC>?true?</ns2:IsDC>
+									<ns2:OrderThreshold>?999?</ns2:OrderThreshold>
+									<ns2:Qty>?999?</ns2:Qty>
+									<ns2:StockLevel>?999?</ns2:StockLevel>
+									<ns2:StoreNumber>?999?</ns2:StoreNumber>
+								</ns2:ArticleStockLevels.StoreStockLevel>
+							</ns2:StoresStockLevels>
+						</ns2:ArticleStockLevels>
+					</ns2:ArticlesStockLevels>
+				</ns1:stockrequest>
+			</ns1:GetAvailability>
+		</s11:Body>
+	</s11:Envelope>
+
+GetAvailability RESPONSE:	[HAL_BTEIntegration_Order_Service.wsdl]
+
+	<s11:Envelope xmlns:s11='http://schemas.xmlsoap.org/soap/envelope/'>
+		<s11:Body>
+			<ns1:GetAvailabilityResponse xmlns:ns1='http://HAL.BTEIntegration.Order.Service'>
+				<ns1:GetAvailabilityResult>
+					<ns2:ArticlesStockLevels xmlns:ns2='http://schemas.datacontract.org/2004/07/HAL.IIS.BTEIntegration.Order'>
+						<!-- from 0 to unbounded -->
+						<ns2:ArticleStockLevels>
+							<ns2:ArticleNumber>?XXX?</ns2:ArticleNumber>
+							<ns2:QtyRequired>?999?</ns2:QtyRequired>
+							<ns2:StoresStockLevels>
+								<!-- from 0 to unbounded -->
+								<ns2:ArticleStockLevels.StoreStockLevel>
+									<ns2:Deposit>?999.99?</ns2:Deposit>
+									<ns2:IsAvailable>?true?</ns2:IsAvailable>
+									<ns2:IsDC>?true?</ns2:IsDC>
+									<ns2:OrderThreshold>?999?</ns2:OrderThreshold>
+									<ns2:Qty>?999?</ns2:Qty>
+									<ns2:StockLevel>?999?</ns2:StockLevel>
+									<ns2:StoreNumber>?999?</ns2:StoreNumber>
+								</ns2:ArticleStockLevels.StoreStockLevel>
+							</ns2:StoresStockLevels>
+						</ns2:ArticleStockLevels>
+					</ns2:ArticlesStockLevels>
+				</ns1:GetAvailabilityResult>
+			</ns1:GetAvailabilityResponse>
+		</s11:Body>
+	</s11:Envelope>
+
+stockLevelRequest: 			[HAL_BTEIntegration_Order_Service.wsdl]
+
+	<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+		<SOAP-ENV:Header/>
+		<SOAP-ENV:Body>
+			<ns3:stockLevelRequest xmlns:ns2="http://schemas.datacontract.org/2004/07/HAL.IIS.BTEIntegration.Order" xmlns:ns3="http://schemas.datacontract.org/2004/07/HAL.Web.Order.Contracts" xmlns:ns4="http://HAL.BTEIntegration.Order.Service" xmlns:ns5="http://www.epicor.com/Retail/Store/" xmlns:ns6="http://schemas.datacontract.org/2004/07/System.ServiceModel" xmlns:ns7="http://schemas.microsoft.com/2003/10/Serialization/">
+				<ns2:ArticlesStockLevels>
+					<ns2:ArticleStockLevels>
+						<ns2:ArticleNumber>123456</ns2:ArticleNumber>
+						<ns2:QtyRequired>1</ns2:QtyRequired>
+						<ns2:StoresStockLevels>
+							<ns2:ArticleStockLevels.StoreStockLevel>
+								<ns2:StoreNumber>0</ns2:StoreNumber>
+							</ns2:ArticleStockLevels.StoreStockLevel>
+						</ns2:StoresStockLevels>
+					</ns2:ArticleStockLevels>
+				</ns2:ArticlesStockLevels>
+			</ns3:stockLevelRequest>
+		</SOAP-ENV:Body>
+	</SOAP-ENV:Envelope>
+
+	
+ATP Stock check REQUEST: 	(NO WSDL available)
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<soapenv:Body>
+			<MT_Request_RTStock xmlns="http://halfords.com/xi/out/ecommerce/st">
+				<Item xmlns="">
+					<Site>765</Site>
+					<Article>160592</Article>
+					<DC>DC_1</DC>
+					<Store1/>
+					<Store2/>
+					<Store3/>
+					<Store4/>
+					<Store5/>
+				</Item>
+				<Item xmlns="">
+					<Site>994</Site>
+					<Article>311399</Article>
+					<DC>DC_2</DC>
+					<Store1/>
+					<Store2/>
+					<Store3/>
+					<Store4/>
+					<Store5/>
+				</Item>
+			</MT_Request_RTStock>
+		</soapenv:Body>
+	</soapenv:Envelope>
+
+
+ATP Stock check RESPONSE: 	(NO WSDL available)
+
+	<?xml version="1.0" encoding="utf-8"?>
+	<SOAP:Envelope xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+		<SOAP:Header/>
+		<SOAP:Body>
+			<ns1:MT_Response_RTSTock xmlns:ns1="http://halfords.com/xi/out/ecommerce/st">
+				<Item>
+					<Article>160592</Article>
+					<DC>DC_1</DC>
+					<Stock>0</Stock>
+					<Store1/>
+					<Store2/>
+					<Store3/>
+					<Store4/>
+					<Store5/>
+					<Date1/>
+					<Date2/>
+					<Date3/>
+					<Date4/>
+					<Date5/>
+				</Item>
+				<Item>
+					<Article>311399</Article>
+					<DC>D500</DC>
+					<Stock>979.000</Stock>
+					<Store1/>
+					<Store2/>
+					<Store3/>
+					<Store4/>
+					<Store5/>
+					<Date1/>
+					<Date2/>
+					<Date3/>
+					<Date4/>
+					<Date5/>
+				</Item>
+			</ns1:MT_Response_RTSTock>
+		</SOAP:Body>
+	</SOAP:Envelope>
+	
+
+ATP Stock reserve REQUEST:				[RTR.wsdl]
+
+	<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+		<SOAP-ENV:Header/>
+		<S:Body>
+			<ns2:MT_RTR_Stock xmlns:ns2="http://halfords.com/xi/in/ecommerce/RTR">
+				<RTR_Header>
+					<Reservation_Order_No>0123456789</Reservation_Order_No>
+					<Res_Date>180702110033</Res_Date>
+					<Move_Plant>C</Move_Plant>
+				</RTR_Header>
+				<RTR_Item>
+					<Material>000000000000012345</Material>
+					<Plant>NON_DC</Plant>
+					<Entry_Qnt>2</Entry_Qnt>
+				</RTR_Item>
+				<RTR_Item>
+					<Material>000000000000023456</Material>
+					<Plant>E</Plant>
+					<Entry_Qnt>1</Entry_Qnt>
+				</RTR_Item>
+			</ns2:MT_RTR_Stock>
+		</S:Body>
+	</S:Envelope>
+
+ATP Stock reserve RESPONSE: (empty)		[RTR.wsdl]

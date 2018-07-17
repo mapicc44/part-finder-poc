@@ -1,0 +1,265 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.halfords.salmon</groupId>
+	<artifactId>part-finder-poc</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>halfords-part-finder-poc</name>
+	<description>Halfords part-finder poc Application</description>
+	
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.3.RELEASE</version>
+	</parent>
+
+	<properties>
+		<java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven-jaxb2-plugin.version>0.13.2</maven-jaxb2-plugin.version>
+        <springfox-swagger.version>2.8.0</springfox-swagger.version>
+    </properties>
+
+	<dependencies>
+		<dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-tomcat</artifactId>
+	        <scope>provided</scope>
+	    </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>axis</groupId>
+		    <artifactId>axis</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${springfox-swagger.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox-swagger.version}</version>
+		</dependency>
+			
+<!-- 		<dependency> -->
+<!-- 		    <groupId>javax.mail</groupId> -->
+<!-- 		    <artifactId>mail</artifactId> -->
+<!-- 		    <version>1.4.7</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 		    <groupId>javax.activation</groupId> -->
+<!-- 		    <artifactId>activation</artifactId> -->
+<!-- 		    <version>1.1.1</version> -->
+<!-- 		</dependency> -->
+
+	</dependencies>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+		<!--
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>axistools-maven-plugin</artifactId>
+				<version>1.3</version>
+				<configuration>
+					 <sourceDirectory>src/main/resources/wsdl</sourceDirectory>
+					<wsdlFiles>
+						<wsdlFiles>ST.wsdl</wsdlFiles>
+					</wsdlFiles>
+					<packageSpace></packageSpace>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>wsdl2java</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		-->
+
+		<!--	
+			<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<version>${maven-jaxb2-plugin.version}</version>
+		
+				<executions>
+					<execution>
+						<id>schema1-generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<schemaDirectory>
+								${project.basedir}/src/main/resources/wsdl
+							</schemaDirectory>
+							<schemaIncludes>
+								<include>HAL_BTEIntegration_Order_Service.wsdl</include>
+							</schemaIncludes>
+							<generateDirectory>${project.build.directory}/generated/store6/src/main/java</generateDirectory>
+							<generatePackage>com.halfords.connectors.sap.store6</generatePackage>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>schema2-generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<schemaDirectory>
+								${project.basedir}/src/main/resources/wsdl
+							</schemaDirectory>
+							<schemaIncludes>
+								<include>RTR.wsdl</include>
+							</schemaIncludes>
+							<generateDirectory>${project.build.directory}/generated/rtr/src/main/java</generateDirectory>
+							<generatePackage>com.halfords.xi.out.ecommerce.rtr</generatePackage>
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>schema3-generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<schemaDirectory>
+								${project.basedir}/src/main/resources/wsdl
+							</schemaDirectory>
+							<schemaIncludes>
+								<include>SI_O_Async_OrdersService.wsdl</include>
+							</schemaIncludes>
+							<generateDirectory>${project.build.directory}/generated/ordextr/src/main/java</generateDirectory>
+							<generatePackage>com.halfords.xi.out.ecommerce.co</generatePackage>
+						</configuration>
+					</execution>					
+				</executions>
+			</plugin>
+		 -->
+
+		</plugins>
+	</build>
+	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<store6.url>http://10.105.20.201:5627/HAL.BTEIntegration.Order.Service.svc</store6.url>
+				<store6.username>PQ1_Ecom</store6.username>
+				<store6.password>bert27af</store6.password>
+				
+				<st.url>http://hspidql1.int.halfords.co.uk:51300/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=ECommerce_QA&amp;receiverParty=&amp;receiverService=SAP_QA&amp;interface=MI_O_Sync_Request_RTStock&amp;interfaceNamespace=http://halfords.com/xi/out/ecommerce/st</st.url>
+				<st.username>PQ1_Ecom</st.username>
+				<st.password>bert27af</st.password>
+				
+				<rtr.url>http://hspidql1.int.halfords.co.uk:51300/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=ECommerce_QA&amp;receiverParty=&amp;receiverService=&amp;interface=SI_O_Async_RTR_Stock&amp;interfaceNamespace=http://halfords.com/xi/in/ecommerce/RTR</rtr.url>
+				<rtr.username>PQ1_Ecom</rtr.username>
+				<rtr.password>bert27af</rtr.password>
+				
+				<ordextr.url>http://hspidql1.int.halfords.co.uk:51300/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=ECommerce_QA&amp;receiverParty=&amp;receiverService=&amp;interface=SI_O_Async_Orders&amp;interfaceNamespace=http://halfords.com/xi/out/ecommerce/co</ordextr.url>
+				<ordextr.username>PQ1_Ecom</ordextr.username>
+				<ordextr.password>bert27af</ordextr.password>
+				
+				<proxy.host></proxy.host>
+				<proxy.port></proxy.port>
+			</properties>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<store6.url>http://10.105.20.201:5627/HAL.BTEIntegration.Order.Service.svc</store6.url>
+				<store6.username>PQ1_Ecom</store6.username>
+				<store6.password>bert27af</store6.password>
+				
+				<st.url>http://hspidql1.int.halfords.co.uk:51300/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=ECommerce_QA&amp;receiverParty=&amp;receiverService=SAP_QA&amp;interface=MI_O_Sync_Request_RTStock&amp;interfaceNamespace=http://halfords.com/xi/out/ecommerce/st</st.url>
+				<st.username>PQ1_Ecom</st.username>
+				<st.password>bert27af</st.password>
+				
+				<rtr.url>http://hspidql1.int.halfords.co.uk:51300/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=ECommerce_QA&amp;receiverParty=&amp;receiverService=&amp;interface=SI_O_Async_RTR_Stock&amp;interfaceNamespace=http://halfords.com/xi/in/ecommerce/RTR</rtr.url>
+				<rtr.username>PQ1_Ecom</rtr.username>
+				<rtr.password>bert27af</rtr.password>
+				
+				<ordextr.url>http://hspidql1.int.halfords.co.uk:51300/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=ECommerce_QA&amp;receiverParty=&amp;receiverService=&amp;interface=SI_O_Async_Orders&amp;interfaceNamespace=http://halfords.com/xi/out/ecommerce/co</ordextr.url>
+				<ordextr.username>PQ1_Ecom</ordextr.username>
+				<ordextr.password>bert27af</ordextr.password>
+				
+				<proxy.host>www.sysstg.halfords.com</proxy.host>
+				<proxy.port>8088</proxy.port>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<store6.url>http://10.105.20.201:5627/HAL.BTEIntegration.Order.Service.svc</store6.url>
+				<store6.username>PQ1_Ecom</store6.username>
+				<store6.password>bert27af</store6.password>
+				
+				<st.url>http://hspicpl1.int.halfords.co.uk:51600/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=ECommerce_PRD&amp;receiverParty=&amp;receiverService=SAP_PRD&amp;interface=MI_O_Sync_Request_RTStock&amp;interfaceNamespace=http://halfords.com/xi/out/ecommerce/st</st.url>
+				<st.username>PQ1_Ecom</st.username>
+				<st.password>bert27af</st.password>
+				
+				<rtr.url>http://hspicpl1.int.halfords.co.uk:51600/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=ECommerce_PRD&amp;receiverParty=&amp;receiverService=&amp;interface=SI_O_Async_RTR_Stock&amp;interfaceNamespace=http://halfords.com/xi/in/ecommerce/RTR</rtr.url>
+				<rtr.username>PP1_Ecom</rtr.username>
+				<rtr.password>fg45hg54</rtr.password>
+				
+				<ordextr.url>http://hspicpl1.int.halfords.co.uk:51600/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=ECommerce_PRD&amp;receiverParty=&amp;receiverService=&amp;interface=SI_O_Async_Orders&amp;interfaceNamespace=http://halfords.com/xi/out/ecommerce/co</ordextr.url>
+				<ordextr.username>PP1_Ecom</ordextr.username>
+				<ordextr.password>fg45hg54</ordextr.password>
+				
+				<proxy.host>proxyvip.web.int.halfords.co.uk</proxy.host>
+				<proxy.port>8088</proxy.port>
+			</properties>
+		</profile>
+	</profiles>
+</project>
